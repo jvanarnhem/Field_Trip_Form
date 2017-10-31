@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        padding-top: .5em;
+        padding-bottom: .5em;
+      } 
+    </style>
+    
+    <link rel="stylesheet" href="//ssl.gstatic.com/docs/script/css/add-ons1.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+    <script>
+      // On document load, assign submit function to the submit button's click event
+      $(document).ready(function(){
+        $(function() {
+          $('#btnSubmit1').click(submit);
+          $('#btnSubmit2').click(reject);
+        });
+      });
+      function submit() {
+      
+        // removed already displayed messages, if any
+        $("#success,#error").remove();
+        $( "input[type='button']" ).prop({disabled: true});
+        $('#btnSubmit2').remove();
+        
+        google.script.run
+          .withSuccessHandler (function(msg, elm) {
+            //$( "input[type='button']" ).prop({disabled: true});
+            showSuccess(msg,elm);
+          })
+          .withFailureHandler (function(msg, elm) {
+            //$( "input[type='button']" ).prop({disabled: true});
+            showError(msg, elm);
+          })
+          .withUserObject(this)
+          .approvalComplete(this.parentNode.parentNode);
+      }
+      
+      function reject() {
+        // removed already displayed messages, if any
+        $("#success,#error").remove();
+        $( "input[type='button']" ).prop({disabled: true});
+        $('#btnSubmit1').remove();
+        
+        google.script.run
+          .withSuccessHandler (function(msg, elm) {
+            //$( "input[type='button']" ).prop({disabled: true});
+            showSuccess(msg,elm);
+          })
+          .withFailureHandler (function(msg, elm) {
+            //$( "input[type='button']" ).prop({disabled: true});
+            showError(msg, elm);
+          })
+          .withUserObject(this)
+          .rejection2(this.parentNode.parentNode);
+      }
+      
+      function showSuccess (msg, elm) {
+        var span = $('<br /><span id="success"><font color="green"> ' + msg +
+          '</font></span>');
+        $(elm).after(span);
+      }
+      
+      function showError (msg, elm) {
+        var span = $('<br /><span id="error" class="error"> ' + msg +
+          '</span>');
+        $(elm).after(span);
+      }
+    </script>
+  </head>
+  <body>
+    <p align="center"><img src="http://ofhsmath.com/online_forms/images/Field%20Trip%20Application.png" width="960" height="150">
+    <form>
+      <table width="850" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+        
+        <tr>
+          <td><label>Application Number:</label></td>
+          <td><input name="appnum" type="text" size="75" value="<?= app[0] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Date Submitted:</label></td>
+          <td><input type="text" size="75" value="<?= app[1] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Destination:</label></td>
+          <td><input name="destination" type="text" size="75" value="<?= app[2] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Date of Trip:</label></td>
+          <td><input name="tripdate" type="text" value="<?= app[3] ?>" readonly /></td>
+        </tr>
+        <tr>
+          <td><label>Day of Week:</label></td>
+          <td><input type="text" value="<?= app[4] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Select Building:</label></td>
+          <td><input name ="building" type="text" value="<?= app[5] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Teacher/Adult in Charge:</label></td>
+          <td><input name="adultincharge" type="text" value="<?= app[6] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Adult in Charge Email:</label></td>
+          <td><input name="email" type="text" value="<?= app[7] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Phone Number:</label></td>
+          <td><input type="text" value="<?= app[8] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Other Adults Assisting:</label></td>
+          <td><textarea rows="4" cols="50" readonly><?= app[9] ?></textarea></td>
+        </tr>
+        
+        <tr>
+          <td><label>Total Number of Adults Riding:</label></td>
+          <td><input type="number" value="<?= app[10] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Total Number of Students Riding:</label></td>
+          <td><input type="number" value="<?= app[11] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Number of Large Buses:</label></td>
+          <td><input type="number" value="<?= app[12] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Number of Small Buses:</label></td>
+          <td><input type="number" value="<?= app[13] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Number of Vans:</label></td>
+          <td><input type="number" value="<?= app[14] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Depart From:</label></td>
+          <td><input type="text" value="<?= app[15] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Destination Address:</label></td>
+          <td><input type="text" value="<?= app[16] ?>" readonly/></td>
+        </tr>
+      </table>
+       
+      <table width="850" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+        <tr>
+          <td><label>School Departure Time:</label></td>
+          <td><input name="start" type="text" value="<?= app[17] ?>" readonly /></td>
+          <td><label>Destination Arrival Time:</label></td>
+          <td><input type="text" value="<?= app[18] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Destination Departure Time:</label></td>
+          <td><input type="text" value="<?= app[19] ?>" readonly /></td>
+          <td><label>School Arrival Time:</label></td>
+          <td><input name="end" type="text" value="<?= app[20] ?>" readonly /></td>
+        </tr>
+      </table>
+      <table id="buildtable" width="850" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+        <tr>
+          <td><label>Extra Stop to Eat:</label></td>
+          <td><input type="text" value="<?= app[21] ?>" readonly /></td>
+        </tr>
+        <tr>
+          <td><label>Extra Stop for Restroom:</label></td>
+          <td><input type="text" value="<?= app[22] ?>" readonly /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Purpose of Trip and/or Comments:</label></td>
+          <td><textarea name="comments" rows="4" cols="75" readonly><?= app[23] ?></textarea></td>
+        </tr>
+        
+        <tr>
+          <td><label>Building Administrator Comments:</label></td>
+          <td><textarea rows="4" cols="75" readonly><?= app[26] ?></textarea></td>
+        </tr>
+        
+        <tr>
+          <td><label>District Administrator Comments:</label></td>
+          <td><textarea name="districtcomments" rows="4" cols="75" placeholder="Enter any comments here."></textarea></td>
+        </tr>
+      </table>
+      <p align="center"><input class="blue" id="btnSubmit1" type="button" value="Approve" /><input class="red" id="btnSubmit2" type="button" value="Reject" /></p>
+      <br />
+    </form>
+  </body>
+</html>
+
+

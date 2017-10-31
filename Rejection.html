@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        padding-top: .5em;
+        padding-bottom: .5em;
+      } 
+    </style>
+    
+    <link rel="stylesheet" href="//ssl.gstatic.com/docs/script/css/add-ons1.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+    <script>
+      // On document load, assign submit function to the submit button's click event
+      $(function() {
+        $('#btnSubmit').click(submit);
+      });
+      
+      function submit() {
+      
+        // removed already displayed messages, if any
+        $("#success,#error").remove();
+        $( "input[type='button']" ).prop({disabled: true});
+        
+        google.script.run
+          .withSuccessHandler (function(msg, elm) {
+            $( "input[type='button']" ).prop({disabled: true});
+            showSuccess(msg,elm);
+          })
+          .withFailureHandler (function(msg, elm) {
+            $( "input[type='button']" ).prop({disabled: true});
+            showError(msg, elm);
+          })
+          .withUserObject(this)
+          .postApplication(this.parentNode.parentNode);
+      }
+      
+      function showSuccess (msg, elm) {
+        var span = $('<br /><span id="success"><font color="green"> ' + msg +
+          '</font></span>');
+        $(elm).after(span);
+      }
+      
+      function showError (msg, elm) {
+        var span = $('<br /><span id="error" class="error"> ' + msg +
+          '</span>');
+        $(elm).after(span);
+      }
+    </script>
+  </head>
+  <body>
+    <p align="center"><img src="http://ofhsmath.com/online_forms/images/Google%20Site%20Banner.png.1414871670454.png" width="960" height="150">
+    <form>
+      <table width="850" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+        
+        <tr>
+          <td><label>Destination:</label></td>
+          <td><input name="destination" type="text" size="75" placeholder="Enter your field trip destination." /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Date of Trip:</label></td>
+          <td><input name="tripdate" type="date" /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Select Building:</label></td>
+          <td>
+            <select id="building" name="building">
+              <option value="HS" >High School</option>
+              <option value="MS" >Middle School</option>
+              <option value="IS" >Intermediate School</option>
+              <option value="FL" >Falls-Lenox</option>
+              <option value="ECC" >Early Childhood Center</option>
+            </select>
+          </td>
+        </tr>
+        
+        <tr>
+          <td><label>Teacher/Adult in Charge:</label></td>
+          <td><input name="adultincharge" type="text" size="50" placeholder="Enter full name of teacher/adult in charge" /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Adult in Charge Email:</label></td>
+          <td><input name="email" type="email" size="50" placeholder="Enter email address." /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Phone Number:</label></td>
+          <td><input name="phone" type="phone" placeholder="(xxx) xxx-xxxx" /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Other Adults Assisting:</label></td>
+          <td><textarea name="adultassisting" rows="4" cols="50" placeholder="Enter the names of all adults assisting (one on each line)."></textarea></td>
+        </tr>
+        
+        <tr>
+          <td><label>Total Number of Adults Riding:</label></td>
+          <td><input id="numaddults" name="numadults" type="number" value="1" /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Total Number of Students Riding:</label></td>
+          <td><input id="numstudents" name="numstudents" type="number" value="1" /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Number of Large Buses:</label></td>
+          <td><input id="largebus" name="largebus" type="number" value="0" /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Number of Small Buses:</label></td>
+          <td><input id="smallbus" name="smallbus" type="number" value="0" /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Number of Vans:</label></td>
+          <td><input id="vans" name="vans" type="number" value="0" /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Depart From:</label></td>
+          <td><input name="depart" type="text" size="50" placeholder="Enter departure location." /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Destination Address:</label></td>
+          <td><input name="destaddress" type="text" size="50" placeholder="Enter destination address." /></td>
+        </tr>
+      </table>
+       
+      <table width="850" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+        <tr>
+          <td><label>School Departure Time:</label></td>
+          <td><input id="leaveschool" name="leaveschool" type="time" /></td>
+          <td><label>Destination Arrival Time:</label></td>
+          <td><input id="arrivedestination" name="arrivedestination" type="time" /></td>
+        </tr>
+        
+        <tr>
+          <td><label>Destination Departure Time:</label></td>
+          <td><input id="leavedestination" name="leavedestination" type="time" /></td>
+          <td><label>School Arrival Time:</label></td>
+          <td><input id="arriveschool" name="arriveschool" type="time" /></td>
+        </tr>
+      </table>
+      <table id="buildtable" width="850" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+        <tr>
+          <td><label>Extra Stop to Eat:</label></td>
+          <td><input type="radio" name="eat" value="y">Yes
+            <input type="radio" name="eat" value="n">No
+          </td>
+        </tr>
+        <tr>
+          <td><label>Extra Stop for Restroom:</label></td>
+          <td><input type="radio" name="restroom" value="y">Yes
+            <input type="radio" name="restroom" value="n">No
+          </td>
+        </tr>
+        
+        <tr>
+          <td><label>Purpose of Trip and/or Comments:</label></td>
+          <td><textarea name="comments" rows="4" cols="75" placeholder="Enter the purpose of your trip and any comments or special requests."></textarea></td>
+        </tr>
+        
+      </table>
+      <p align="center"><input class="blue" id="btnSubmit" type="button" value="Submit" /></p>
+      <br />
+    </form>
+  </body>
+</html>
+
+
