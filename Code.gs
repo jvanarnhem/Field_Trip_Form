@@ -51,6 +51,18 @@ function postApplication(form) {
   // validate user email
   if (!isValidEmail_(form.email))
     throw "Please provide a valid email address.";
+  if (form.leaveschool == null || form.leaveschool == "")
+    throw "Please enter a time for your school departure.";
+  /*
+  if (form.arrivedestination == null || form.arrivedestination == "")
+    throw "Please enter a student name.";
+  if (form.teachname == null || form.teachname == "")
+    throw "Please enter a teacher name.";
+  if (form.parentcall == null || form.parent == "")
+    throw "Checkbox for parent/guardian communication was not selected. You must call home before submitting this form.";
+  if (form.studname == null || form.studname == "")
+    throw "Please enter a student name.";
+  */
   
   var appNumber = +new Date();
   var timeStamp = new Date();
