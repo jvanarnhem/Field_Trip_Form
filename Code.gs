@@ -51,18 +51,16 @@ function postApplication(form) {
   // validate user email
   if (!isValidEmail_(form.email))
     throw "Please provide a valid email address.";
+  if (form.destaddress == null || form.destaddress == "")
+    throw "Please enter a full address for your destination.";
   if (form.leaveschool == null || form.leaveschool == "")
     throw "Please enter a time for your school departure.";
-  /*
   if (form.arrivedestination == null || form.arrivedestination == "")
-    throw "Please enter a student name.";
-  if (form.teachname == null || form.teachname == "")
-    throw "Please enter a teacher name.";
-  if (form.parentcall == null || form.parent == "")
-    throw "Checkbox for parent/guardian communication was not selected. You must call home before submitting this form.";
-  if (form.studname == null || form.studname == "")
-    throw "Please enter a student name.";
-  */
+    throw "Please enter a time for arrival at your destination.";
+  if (form.leavedestination == null || form.leavedestination == "")
+    throw "Please enter a time for departure from your destination.";
+  if (form.arriveschool == null || form.arriveschool == "")
+    throw "Please enter a time for arrival at school.";
   
   var appNumber = +new Date();
   var timeStamp = new Date();
