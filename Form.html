@@ -33,7 +33,7 @@
       
         // removed already displayed messages, if any
         $("#success,#error").remove();
-        $( "input[type='button']" ).prop({disabled: true});
+        //$( "input[type='button']" ).prop({disabled: true});
         
         google.script.run
           .withSuccessHandler (function(msg, elm) {
@@ -41,7 +41,7 @@
             showSuccess(msg,elm);
           })
           .withFailureHandler (function(msg, elm) {
-            $( "input[type='button']" ).prop({disabled: true});
+            //$( "input[type='button']" ).prop({disabled: true});
             showError(msg, elm);
           })
           .withUserObject(this)
